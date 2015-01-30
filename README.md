@@ -11,4 +11,4 @@ Add search query as a command line parameter. Here's a fully working crontab lin
 */15 * * * * python QueryManager.py nintendo
 ```
 
-The initial version is quite crude on its own - don't expect for it to categorize search queries or any other fancy stuff.
+The initial version is quite crude on its own - don't expect it to categorize search queries or any other fancy stuff.
