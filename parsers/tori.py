@@ -1,8 +1,8 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup
-import urllib2
-from parser import Parser
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+from .parser import Parser
 
 class ToriParser(Parser):
 	"""
@@ -13,10 +13,11 @@ class ToriParser(Parser):
 		self.location = "suomi"
 		self.url = "http://tori.fi/{location}/?q={query}"
 
-	def fetch(self, url):
-		"""Fetches the query specific titles from Tori.fi"""
-		html_doc = urllib2.urlopen(url)
-		soup = BeautifulSoup(html_doc.read().decode('ISO-8859-15', 'ignore')) #
+	def parse_html(self, html_doc):
+		"""
+			Parses the Tori.fi specific html
+		"""
+		soup = BeautifulSoup(html_doc.read())
 		
 		temp = soup.findAll("div", attrs={"class": "desc"})
 
@@ -31,14 +32,15 @@ class ToriParser(Parser):
 
 	def run(self, query):
 		url = self.url.format(location=self.location, query=query)
-		data = self.fetch(url)
+		html_doc = self.query_data(url)
+		data = self.parse_html(html_doc)
 
 		diff = self.compare_to_local(query, data)
 
 		if diff:
-			print "[tori.py] following items found: "
+			print("[tori.py] following items found: ")
 			for item in diff:
-				print "[tori.py] " + item
+				print("[tori.py] " + item)
 
-			print "[tori.py] Compile a mail here" # and return it
+			print("[tori.py] Compile a mail here") # and return it
 			return "[tori.py] " + str(len(diff)) + " new items found"

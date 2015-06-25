@@ -1,16 +1,16 @@
 # -*- coding: UTF-8 -*-
 
-# JJFI99992261500081870
-
 # File to save the queried data between calls
-save_file = u"queries" # insert name without extension
+# insert name without extension
+SAVE_FILE = u"database"
+REQUEST_TIMEOUT = 3
 
 # Gmail details to send the mail as
-gmail_user = u"botti@gmail.com"
-gmail_pwd = u"salasana"
+GMAIL_USER = u"botti@gmail.com"
+GMAIL_PWD = u"password"
 
 # Other mail details
-gmail_subject = u"ToriBOT: New items with query {} found!"
+GMAIL_SUBJECT = u"Vahtibot: New items with query {} found!"
 
 # Notification mail recipient
-recipient = u"vastaanottaja@gmail.com"
+RECIPIENT = u"recipient@gmail.com"
