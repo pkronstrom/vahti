@@ -1,10 +1,9 @@
 # -*- coding: UTF-8 -*-
 
-# The script defaults to this if no parameters are given
-defaultquery = u"longboard"
+# JJFI99992261500081870
 
 # File to save the queried data between calls
-save_file = u"data.txt" # can be a path
+save_file = u"queries" # insert name without extension
 
 # Gmail details to send the mail as
 gmail_user = u"botti@gmail.com"
@@ -14,4 +13,4 @@ gmail_pwd = u"salasana"
 gmail_subject = u"ToriBOT: New items with query {} found!"
 
 # Notification mail recipient
-gmail_recipient = u"vastaanottaja@gmail.com"
+recipient = u"vastaanottaja@gmail.com"
