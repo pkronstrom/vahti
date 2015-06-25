@@ -1,14 +1,29 @@
-Torivahti
+Vahti
 ==========
 
-A script to poll Tori.fi search and notify the user on new items.
+Vahti is a tool that keeps track on given websites and notifies the user on new items via email.
 
-Change config.py accordingly and run QueryManager.py to begin! This script isn't a daemon so it should be run on Crontab or Scheduler to automate the process.
+Currently only **posti.fi parcel tracking** and **tori.fi** are supported. However, new parsers can now be easily added.
 
-Add search query as a command line parameter. Here's a fully working crontab line for searching nintendos in tori.fi:
+This script isn't a daemon so it should be run on Crontab or Scheduler to automate the process. The script is tested to be working on Python 3.4 and depends on BeautifulSoup4.
+
+## Usage
+
+1. Change settings in config.py accordingly
+2. (Install Python 3.x) and install requirements with pip ```pip install -r requirements.txt```
+3. Run the script with options ```python vahti.py [options]```
+	- *-h, --help* to show the script help message
+	- *-p, --parser* to select which parser to use (currently you can select from "tori" or "posti")
+	- *-q, --query* to give the query string (i.e. posti tracking number or tori.fi search query)
+	- *-e, --email* to specify a different email recipient
+	- *-c, --clear* to empty the database
+
+Here's a fully working crontab line for searching nintendos in tori.fi and tracking parcels:
 
 ```
-*/15 * * * * python QueryManager.py nintendo
+*/15 * * * * python vahti.py --parser tori --query nintendo
+*/15 * * * * python vahti.py -p posti -q JJFI99992261500081870
+
 ```
 
-The initial version is quite crude on its own - don't expect it to categorize search queries or any other fancy stuff.
+Unfortunately currently the script supports only one parser at a time, so if you want to use both tori and post at the same time, you will need to add several crontab lines.
