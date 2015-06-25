@@ -11,6 +11,7 @@ class PostiParser(Parser):
 	"""
 
 	def __init__(self):
+		super().__init__()
 		self.lang = "fi"
 		self.url = "http://www.posti.fi/itemtracking/posti/search_by_shipment_id?lang={lang}&ShipmentId={tracking_no}"
 
@@ -37,10 +38,11 @@ class PostiParser(Parser):
 
 		diff = self.compare_to_local(query, data)
 
-		if diff:
-			print("[posti.py] Compile a mail here") # and return it
+		self.mail_data[query] = diff
+		self.mail_urls[query] = url
 
-			return "[posti.py] " + str(len(diff)) + " new items found"
+		if diff:
+			return diff
 
 
 

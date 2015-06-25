@@ -3,14 +3,38 @@
 # File to save the queried data between calls
 # insert name without extension
 SAVE_FILE = u"database"
+
+# How long the website is queried in seconds before the connection times out
 REQUEST_TIMEOUT = 3
 
-# Gmail details to send the mail as
-GMAIL_USER = u"botti@gmail.com"
-GMAIL_PWD = u"password"
+if True:
+	# I have saved my sensitive data in environment variables
+	# change the conditional to False and modify the details below else
+	import os
+	GMAIL_USER = os.environ.get('GMAIL_USER')
+	GMAIL_PWD = os.environ.get('GMAIL_PWD')
+	RECIPIENT = os.environ.get('VAHTI_RECIPIENT')
+else:
+	GMAIL_USER = "sender@gmail.com"
+	GMAIL_PWD = "hunter2"
+	RECIPIENT = "my.own.email@work.com"
 
-# Other mail details
-GMAIL_SUBJECT = u"Vahtibot: New items with query {} found!"
+MAIL_SUBJECT = u"Vahti [{}] - New items found!"
 
-# Notification mail recipient
-RECIPIENT = u"recipient@gmail.com"
+# In Jinja2 format
+MAIL_TEMPLATE = """
+	<h3>An exciting update!</h3>
+	<br />
+
+	{% for query, results in queries.items() %}
+		<b>Query: </b> <a href="{{ urls.get(query) }}">{{ query }}</a>
+		<br />
+		<div>
+			<ul>
+				{% for result in results %}
+				<li>{{ result }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endfor %}
+"""

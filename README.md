@@ -14,16 +14,20 @@ This script isn't a daemon so it should be run on Crontab or Scheduler to automa
 3. Run the script with options ```python vahti.py [options]```
 	- *-h, --help* to show the script help message
 	- *-p, --parser* to select which parser to use (currently you can select from "tori" or "posti")
-	- *-q, --query* to give the query string (i.e. posti tracking number or tori.fi search query)
+	- *-q, --query* to give the query string (i.e. posti tracking number or tori.fi search query). Separate multiple queries with space.
 	- *-e, --email* to specify a different email recipient
 	- *-c, --clear* to empty the database
 
-Here's a fully working crontab line for searching nintendos in tori.fi and tracking parcels:
-
+Some examples:
 ```
 */15 * * * * python vahti.py --parser tori --query nintendo
+*/15 * * * * python vahti.py --parser tori --query "sohva tuoli pöytä"
 */15 * * * * python vahti.py -p posti -q JJFI99992261500081870
-
 ```
 
-Unfortunately currently the script supports only one parser at a time, so if you want to use both tori and post at the same time, you will need to add several crontab lines.
+Here's a fully working crontab line for searching nintendos in tori.fi and tracking parcels:
+```
+*/15 * * * * python vahti.py --parser tori --query nintendo
+```
+
+Unfortunately currently the script supports only one parser at a time, so if you want to use both tori and posti at the same time, you will need to add several crontab lines.

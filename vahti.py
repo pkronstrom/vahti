@@ -36,11 +36,15 @@ class Vahti:
 			self.recipient = RECIPIENT
 
 	def main(self):
+		diff = []
 		for query in self.queries:
 			diff = self.parser.run(query)
 
 		if diff:
 			print("[vahti.py] New items found! Sending mail...")
+			subject, msg = self.parser.create_mail()
+			self.mail(subject, msg)
+
 		else:
 			print("[vahti.py] No new items found")
 
@@ -70,6 +74,8 @@ class Vahti:
 					]
 
 		headers = "\r\n".join(headers)
+		headers += "\r\n\r\n"
+		headers += msg
 
 		# Connect to the mailserver and send the message
 		try:
@@ -78,8 +84,10 @@ class Vahti:
 			mailServer.starttls()
 			mailServer.ehlo()
 			mailServer.login(GMAIL_USER, GMAIL_PWD)
-			mailServer.sendmail(GMAIL_USER, RECIPIENT, headers.encode('utf-8') + "\r\n\r\n" + msg.encode('utf-8'))
+			mailServer.sendmail(GMAIL_USER, RECIPIENT, headers.encode('utf-8'))
 			mailServer.close()
+			print("[vahti.py] Mail sent to " + RECIPIENT)
+
 		except smtplib.SMTPAuthenticationError:
 			print("Incorrect Gmail login. - Mail was not sent.")
 

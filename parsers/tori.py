@@ -10,8 +10,10 @@ class ToriParser(Parser):
 	"""
 
 	def __init__(self):
+		super().__init__()
 		self.location = "suomi"
 		self.url = "http://tori.fi/{location}/?q={query}"
+
 
 	def parse_html(self, html_doc):
 		"""
@@ -37,10 +39,8 @@ class ToriParser(Parser):
 
 		diff = self.compare_to_local(query, data)
 
-		if diff:
-			print("[tori.py] following items found: ")
-			for item in diff:
-				print("[tori.py] " + item)
+		self.mail_data[query] = diff
+		self.mail_urls[query] = url
 
-			print("[tori.py] Compile a mail here") # and return it
-			return "[tori.py] " + str(len(diff)) + " new items found"
+		if diff:
+			return diff

@@ -4,10 +4,24 @@ import shelve
 import sys
 from urllib.request import urlopen
 from socket import timeout
+from jinja2 import Template
 
-from config import SAVE_FILE, REQUEST_TIMEOUT
+from config import SAVE_FILE, REQUEST_TIMEOUT, MAIL_SUBJECT, MAIL_TEMPLATE
 
 class Parser():
+	def __init__(self):
+		self.mail_data = {}
+		self.mail_urls = {}
+
+	def create_mail(self):
+		if self.mail_data:
+			qs = ", ".join(self.mail_data.keys())
+			subject = MAIL_SUBJECT.format(qs)
+			msg = Template(MAIL_TEMPLATE).render(queries=self.mail_data, urls=self.mail_urls)
+			return subject, msg
+		else:
+			print("Error in creating mail")
+			sys.exit()
 
 	def _get_list_diff(self, list1, list2):
 		"""
@@ -39,10 +53,6 @@ class Parser():
 
 			if len(diff) > 0:
 				local_storage[query] += diff 	# save the diff to stash
-
-				print ("[parser.py] DIFF:")
-				for item in diff:
-					print ("[parser.py] " + item)
 			else:
 				print ("[parser.py] No new items found")
 
