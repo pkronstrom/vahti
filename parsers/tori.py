@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from bs4 import BeautifulSoup
-from urllib.request import urlopen
+from urllib.parse import quote
+
 from .parser import Parser
 
 class ToriParser(Parser):
@@ -33,7 +34,7 @@ class ToriParser(Parser):
 		return titles
 
 	def run(self, query):
-		url = self.url.format(location=self.location, query=query)
+		url = self.url.format(location=self.location, query=quote(query))
 		html_doc = self.query_data(url)
 		data = self.parse_html(html_doc)
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from bs4 import BeautifulSoup
-from urllib.request import urlopen
+
 from .parser import Parser
 from config import REQUEST_TIMEOUT
 
