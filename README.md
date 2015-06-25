@@ -20,9 +20,9 @@ This script isn't a daemon so it should be run on Crontab or Scheduler to automa
 
 Some examples:
 ```
-*/15 * * * * python vahti.py --parser tori --query nintendo
-*/15 * * * * python vahti.py --parser tori --query "sohva tuoli pöytä"
-*/15 * * * * python vahti.py -p posti -q JJFI99992261500081870
+python vahti.py --parser tori --query nintendo
+python vahti.py --parser tori --query "sohva tuoli pöytä"
+python vahti.py -p posti -q JJFI99992261500081870
 ```
 
 Here's a fully working crontab line for searching nintendos in tori.fi and tracking parcels:
