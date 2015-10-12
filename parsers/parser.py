@@ -42,18 +42,20 @@ class Parser():
 			Compares the given data to the database, usign query as a key
 		"""
 
-		with shelve.open(SAVE_FILE) as local_storage:
-			try:
-				saved_query_data = local_storage[query]
-			except KeyError:
-				saved_query_data = []
-				local_storage[query] = saved_query_data
+		local_storage = shelve.open(SAVE_FILE)
+		try:
+			saved_query_data = local_storage[query]
+		except KeyError:
+			saved_query_data = []
+			local_storage[query] = saved_query_data
 
-			diff = self._get_list_diff(data, saved_query_data)
+		diff = self._get_list_diff(data, saved_query_data)
 
-			if len(diff) > 0:
-				local_storage[query] += diff 	# save the diff to stash
-			else:
-				print ("[parser.py] No new items found")
+		if len(diff) > 0:	
+			local_storage[query] += diff 	# save the diff to stash
+		else:
+			print ("[parser.py] No new items found")
+
+		local_storage.close()
 
 		return diff

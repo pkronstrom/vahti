@@ -52,8 +52,9 @@ class Vahti:
 		import sys
 		import shelve
 
-		with shelve.open(SAVE_FILE) as db:
-			db.clear()
+		db = shelve.open(SAVE_FILE)
+		db.clear()
+		db.close()
 
 		print("Database cleared.")
 
@@ -66,11 +67,11 @@ class Vahti:
 
 		# Parse the mail headers
 		headers = [
-					u"From: " + GMAIL_USER,
-					u"Subject: " + subject,
-					u"To: " + self.recipient,
-					u"MIME-Version: 1.0",
-					u"Content-Type: text/html; charset=UTF-8"
+					"From: " + GMAIL_USER,
+					"Subject: " + subject,
+					"To: " + self.recipient,
+					"MIME-Version: 1.0",
+					"Content-Type: text/html; charset=UTF-8"
 					]
 
 		headers = "\r\n".join(headers)
@@ -80,6 +81,7 @@ class Vahti:
 		# Connect to the mailserver and send the message
 		try:
 			mailServer = smtplib.SMTP("smtp.gmail.com", 587)
+			#mailServer.set_debuglevel(1)
 			mailServer.ehlo()
 			mailServer.starttls()
 			mailServer.ehlo()
