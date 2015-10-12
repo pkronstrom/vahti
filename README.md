@@ -5,7 +5,9 @@ Vahti is a tool that keeps track on given websites and notifies the user on new 
 
 Currently only **posti.fi parcel tracking** and **tori.fi** are supported. However, new parsers can now be easily added.
 
-This script isn't a daemon so it should be run on Crontab or Scheduler to automate the process. The script is tested to be working on Python 3.4 and depends on BeautifulSoup4.
+This script isn't a daemon so it should be run on Crontab or Scheduler to automate the process. The script is tested to be working on Python 3.2+ and depends on BeautifulSoup4.
+
+Please note that, you might have to turn on access for less secure apps in google account security settings, in order to use the smtplib for sending notification mails. (Also, check your spam if you don't see the notifications sent).
 
 ## Usage
 
@@ -32,7 +34,7 @@ python vahti.py --clear
 
 Here's a fully working crontab line for searching nintendos in tori.fi and tracking parcels:
 ```
-*/15 * * * * python vahti.py --parser tori --query nintendo
+*/15 * * * * python vahti.py --parser tori --query nintendo --email workmail@work.fi
 ```
 
 Unfortunately currently the script supports only one parser at a time, so if you want to use both tori and posti at the same time, you will need to add several crontab lines.
