@@ -34,7 +34,7 @@ python vahti.py --clear
 
 Here's a fully working crontab line for searching nintendos in tori.fi and tracking parcels:
 ```
-*/15 * * * * python vahti.py --parser tori --query nintendo --email workmail@work.fi
+*/15 * * * * python3 /home/peter/projects/vahti/vahti.py --parser tori --query "nintendo" --email peter@gmail.com 
 ```
 
 Unfortunately currently the script supports only one parser at a time, so if you want to use both tori and posti at the same time, you will need to add several crontab lines.
