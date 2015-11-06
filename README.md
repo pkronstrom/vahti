@@ -16,14 +16,14 @@ Please note that, you might have to turn on access for less secure apps in googl
 3. Run the script with options ```python vahti.py [options]```
 	- *-h, --help* to show the script help message
 	- *-p, --parser* to select which parser to use (currently you can select from "tori" or "posti")
-	- *-q, --query* to give the query string (i.e. posti tracking number or tori.fi search query). Separate multiple queries with space.
+	- *-q, --query* to give the query string (i.e. posti tracking number or tori.fi search query). Separate multiple queries with a comma.
 	- *-e, --email* to specify a different email recipient
 	- *-c, --clear* to empty the database
 
 Some query examples:
 ```
 python vahti.py --parser tori --query nintendo --email workmail@work.fi
-python vahti.py -p tori --query "sohva tuoli pöytä"
+python vahti.py -p tori --query "sohva,tuoli,pöytä"
 python vahti.py -p posti -q JJFI99992261500081870
 ```
 
