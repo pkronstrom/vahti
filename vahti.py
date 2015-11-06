@@ -17,7 +17,7 @@ class Vahti:
 		(options, args) = self.optparser.parse_args()
 
 		if options.query:
-			self.queries = options.query.split(" ")
+			self.queries = options.query.split(",").strip()
 		else:
 			self.optparser.error('Please specify a query string. See --help')
 
@@ -86,9 +86,9 @@ class Vahti:
 			mailServer.starttls()
 			mailServer.ehlo()
 			mailServer.login(GMAIL_USER, GMAIL_PWD)
-			mailServer.sendmail(GMAIL_USER, RECIPIENT, headers.encode('utf-8'))
+			mailServer.sendmail(GMAIL_USER, self.recipient, headers.encode('utf-8'))
 			mailServer.close()
-			print("[vahti.py] Mail sent to " + RECIPIENT)
+			print("[vahti.py] Mail sent to " + self.recipient)
 
 		except smtplib.SMTPAuthenticationError:
 			print("Incorrect Gmail login. - Mail was not sent.")
