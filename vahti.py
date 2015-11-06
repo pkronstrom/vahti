@@ -17,7 +17,7 @@ class Vahti:
 		(options, args) = self.optparser.parse_args()
 
 		if options.query:
-			self.queries = options.query.split(",").strip()
+			self.queries = options.query.split(",")
 		else:
 			self.optparser.error('Please specify a query string. See --help')
 
